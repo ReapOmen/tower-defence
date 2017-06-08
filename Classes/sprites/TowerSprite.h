@@ -20,7 +20,7 @@ public:
     void initOptions(const cocos2d::Vec2& pos);
 
 private:
-    std::unique_ptr<Tower> _tower;
+    Tower* _tower;
 };
 
 #endif

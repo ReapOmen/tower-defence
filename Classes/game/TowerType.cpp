@@ -5,9 +5,9 @@ using std::vector;
 using std::map;
 using std::string;
 
-const vector<tuple<string, float, float>> TowerType::towers = {
-    std::make_tuple("regular", 8, 20),
-    std::make_tuple("sniper", 10, 30)
+const vector<tuple<float, float, int, string>> TowerType::towers = {
+    std::make_tuple(40.0f, 8.0f, 20, "regular"),
+    std::make_tuple(60.0f, 10.0f, 30, "sniper")
 };
 
 const map<string, string> TowerType::towerResources = {
@@ -15,7 +15,7 @@ const map<string, string> TowerType::towerResources = {
     {"sniper", "tower.png"}
 };
 
-tuple<string, float, float> TowerType::get(int i) {
+tuple<float, float, int, string> TowerType::get(int i) {
     return TowerType::towers[i];
 }
 

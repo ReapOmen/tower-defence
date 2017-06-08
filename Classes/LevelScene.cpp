@@ -17,37 +17,10 @@ bool LevelScene::init() {
     }
     addEvents();
     _selected = nullptr;
-    auto map = TMXTiledMap::create("level1.tmx");
-    map->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-    addChild(map);
-    map->getChildrenCount();
-    auto layer = map->getLayer("layer1");
-    auto pathLayer = map->getLayer("path");
-    std::vector<Vec2> path = std::vector<Vec2>();
-    Size s = layer->getLayerSize();
-    int tag = 0;
-    for (int x = 0; x < s.width; ++x) {
-        for (int y = 0; y < s.height; ++y) {
-            Vec2 p = Vec2(x, y);
-            auto gid = layer->getTileGIDAt(p);
-            auto pGid = pathLayer->getTileGIDAt(p);
-            if (gid != 0) {
-                auto removedSprite = layer->getTileAt(p);
-                SelectableSprite* newSprite = SelectableSprite::create(removedSprite);
-                newSprite->setTag(tag);
-                layer->removeTileAt(p);
-                addChild(newSprite);
-                ++tag;
-            }
-            if (pGid != 0) {
-                path.push_back(pathLayer->getTileAt(p)->getPosition());
-            }
-        }
-    }
+    initMap();
     auto size = Director::getInstance()->getVisibleSize();
     _selector = TowerSelector::create(Vec2(size.width, size.height));
     addChild(_selector);
-    _level = std::move(std::unique_ptr<Level>(new Level(path)));
     return true;
 }
 
@@ -65,8 +38,10 @@ void LevelScene::addEvents() {
                 if (sprite->getBoundingBox().containsPoint(p) && !_selected) {
                     sprite->select();
                     _selected = sprite;
-                    this->_selector->show();
-                    shouldHide = false;
+                    if (!dynamic_cast<TowerSprite*>(child)) {
+                        this->_selector->show();
+                        shouldHide = false;
+                    }
 
                 } else {
                     sprite->unselect();
@@ -82,12 +57,44 @@ void LevelScene::addEvents() {
 }
 
 void LevelScene::addTower(int i) {
-    if (_selected) {
+    Tower* tower = new Tower(TowerType::get(i));
+    if (_selected && _level->getGold() >= tower->getCost()) {
         Vec2 pos = _selected->getPosition();
         removeChildByTag(_selected->getTag());
-        Tower* tower = new Tower(TowerType::get(i));
         std::string img = TowerType::getResource(tower->getName());
         addChild(TowerSprite::create(img, tower, pos));
+        _level->addTower(tower);
         _selector->hide();
     }
+}
+
+void LevelScene::initMap() {
+    TMXTiledMap* map = TMXTiledMap::create("level1.tmx");
+    map->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+    addChild(map);
+    map->getChildrenCount();
+    TMXLayer* layer = map->getLayer("layer1");
+    TMXLayer* pathLayer = map->getLayer("path");
+    std::vector<Vec2> path = std::vector<Vec2>();
+    Size s = layer->getLayerSize();
+    int tag = 0;
+    for (int x = 0; x < s.width; ++x) {
+        for (int y = 0; y < s.height; ++y) {
+            Vec2 p = Vec2(x, y);
+            int gid = layer->getTileGIDAt(p);
+            int pGid = pathLayer->getTileGIDAt(p);
+            if (gid != 0) {
+                auto removedSprite = layer->getTileAt(p);
+                SelectableSprite* newSprite = SelectableSprite::create(removedSprite);
+                newSprite->setTag(tag);
+                layer->removeTileAt(p);
+                addChild(newSprite);
+                ++tag;
+            }
+            if (pGid != 0) {
+                path.push_back(pathLayer->getTileAt(p)->getPosition());
+            }
+        }
+    }
+    _level = std::move(std::unique_ptr<Level>(new Level(path)));
 }
