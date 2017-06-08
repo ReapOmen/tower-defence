@@ -17,7 +17,6 @@ class TowerSelector;
 class LevelScene : public cocos2d::Layer {
 
 public:
-
     static cocos2d::Scene* createScene();
 
     bool init();
@@ -27,16 +26,15 @@ public:
     CREATE_FUNC(LevelScene);
 
 private:
-
     SelectableSprite* _selected;
 
     std::unique_ptr<Level> _level;
 
     TowerSelector* _selector;
 
-    std::vector<TowerSprite*> _towers;
-
     void addEvents();
+
+    void initMap();
 };
 
 #endif

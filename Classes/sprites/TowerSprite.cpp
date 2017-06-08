@@ -5,7 +5,7 @@ USING_NS_CC;
 using std::unique_ptr;
 
 TowerSprite::TowerSprite()
-    : _tower(unique_ptr<Tower>(new Tower())) {
+    : _tower(new Tower()) {
 
 }
 

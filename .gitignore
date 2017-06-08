@@ -2,3 +2,7 @@ cocos2d
 proj.*
 *.json
 *\~
+CMakeCache*
+CMakeFiles*
+Makefile
+cmake_*
