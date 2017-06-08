@@ -21,7 +21,7 @@ void TowerSelector::initOptions(const Vec2& pos) {
     float width = 0.0f;
     int tag = 0;
     for (const auto& tower : TowerType::towers) {
-        Button* towerButton = Button::create(TowerType::getResource(get<0>(tower)));
+        Button* towerButton = Button::create(TowerType::getResource(get<TowerType::NAME>(tower)));
         towerButton->setTag(tag);
         width = towerButton->getContentSize().width;
         towerButton->addTouchEventListener(CC_CALLBACK_2(TowerSelector::action, this));

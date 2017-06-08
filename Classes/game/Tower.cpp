@@ -1,18 +1,17 @@
 #include "Tower.h"
-
-#include "cocos2d.h"
 using std::string;
 using std::get;
 
 Tower::Tower()
-    : _range(0.0f), _attackPower(0.0f) {
+    : _range(0.0f), _attackPower(0.0f), _cost(0), _name("") {
 
 }
 
-Tower::Tower(const std::tuple<string, float, float>& towerType)
-    : _name(get<0>(towerType)),
-      _attackPower(get<1>(towerType)),
-      _range(get<2>(towerType)) {
+Tower::Tower(const std::tuple<float, float, int, string>& towerType)
+    : _range(get<TowerType::RANGE>(towerType)),
+      _attackPower(get<TowerType::ATTACK>(towerType)),
+      _cost(get<TowerType::COST>(towerType)),
+      _name(get<TowerType::NAME>(towerType)) {
 }
 
 float Tower::getRange() const {
@@ -21,6 +20,10 @@ float Tower::getRange() const {
 
 float Tower::getAttackPower() const {
     return _attackPower;
+}
+
+int Tower::getCost() const {
+    return _cost;
 }
 
 string Tower::getName() const {
@@ -33,6 +36,10 @@ void Tower::setRange(float range) {
 
 void Tower::setAttackPower(float attackPower) {
     _attackPower = attackPower;
+}
+
+void Tower::setCost(int cost) {
+    _cost = cost;
 }
 
 void Tower::setName(const string& name) {
