@@ -131,6 +131,8 @@ set(GAME_SRC
   Classes/widgets/TowerSelector.cpp
   Classes/game/TowerType.cpp
   Classes/game/Level.cpp
+  Classes/game/Enemy.cpp
+  Classes/game/EnemyType.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -143,6 +145,8 @@ set(GAME_HEADERS
   Classes/widgets/TowerSelector.h
   Classes/game/TowerType.h
   Classes/game/Level.h
+  Classes/game/Enemy.h
+  Classes/game/EnemyType.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
