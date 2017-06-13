@@ -2,7 +2,6 @@
 
 USING_NS_CC;
 #define CC_DEBUG 1
-using std::unique_ptr;
 
 TowerSprite::TowerSprite()
     : _tower(new Tower()) {

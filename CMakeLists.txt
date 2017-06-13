@@ -128,6 +128,7 @@ set(GAME_SRC
   Classes/game/Tower.cpp
   Classes/sprites/SelectableSprite.cpp
   Classes/sprites/TowerSprite.cpp
+  Classes/sprites/EnemySprite.cpp
   Classes/widgets/TowerSelector.cpp
   Classes/game/TowerType.cpp
   Classes/game/Level.cpp
@@ -142,6 +143,7 @@ set(GAME_HEADERS
   Classes/game/Tower.h
   Classes/sprites/SelectableSprite.h
   Classes/sprites/TowerSprite.h
+  Classes/sprites/EnemySprite.h
   Classes/widgets/TowerSelector.h
   Classes/game/TowerType.h
   Classes/game/Level.h
