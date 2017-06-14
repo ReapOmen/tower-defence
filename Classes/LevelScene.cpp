@@ -1,8 +1,8 @@
 #include "LevelScene.h"
+#include "sprites/EnemySprite.h"
 
 USING_NS_CC;
 #define COCOS2D_DEBUG 1
-
 
 Scene* LevelScene::createScene() {
     Scene* scene = Scene::create();
@@ -21,7 +21,28 @@ bool LevelScene::init() {
     auto size = Director::getInstance()->getVisibleSize();
     _selector = TowerSelector::create(Vec2(size.width, size.height));
     addChild(_selector);
+    scheduleUpdate();
+    _level->addListener(this);
     return true;
+}
+
+void LevelScene::update(float dt) {
+    _level->update(dt);
+    int i = 0;
+    for (const auto& sprite : getChildren()) {
+        auto enemy = dynamic_cast<EnemySprite*>(sprite);
+        if (enemy) {
+            enemy->setPosition(_level->getEnemies()[i++]->getPosition());
+        }
+    }
+}
+
+void LevelScene::notify(std::string message) {
+    if (message == "enemy") {
+        auto& enemies = _level->getEnemies();
+        Enemy* e = enemies[enemies.size() - 1].get();
+        addChild(EnemySprite::create(EnemyType::getResource(e->getName()), e, Vec2::ZERO));
+    }
 }
 
 void LevelScene::addEvents() {
@@ -38,7 +59,8 @@ void LevelScene::addEvents() {
                 if (sprite->getBoundingBox().containsPoint(p) && !_selected) {
                     sprite->select();
                     _selected = sprite;
-                    if (!dynamic_cast<TowerSprite*>(child)) {
+                    if (!dynamic_cast<TowerSprite*>(child) ||
+                            !dynamic_cast<EnemySprite*>(child)) {
                         this->_selector->show();
                         shouldHide = false;
                     }

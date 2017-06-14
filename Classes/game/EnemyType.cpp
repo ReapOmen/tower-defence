@@ -12,7 +12,7 @@ const vector<tuple<float, float, int, string>> EnemyType::enemies = {
 
 const map<string, string> EnemyType::enemyResources = {
     {"regular", "tower.png"},
-    {"sniper", "tower.png"}
+    {"knight", "tower.png"}
 };
 
 tuple<float, float, int, string> EnemyType::get(int i) {

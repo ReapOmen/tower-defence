@@ -2,6 +2,7 @@
 #define __ENEMY_H__
 
 #include <tuple>
+#include "cocos2d.h"
 #include "EnemyType.h"
 
 class Enemy {
@@ -19,6 +20,8 @@ public:
 
     std::string getName() const;
 
+    cocos2d::Vec2 getPosition() const;
+
     void setSpeed(float speed);
 
     void setHealth(float health);
@@ -27,7 +30,10 @@ public:
 
     void setName(const std::string& name);
 
+    void update();
+
 private:
+    cocos2d::Vec2 _pos;
     float _speed;
     float _health;
     int _bounty;

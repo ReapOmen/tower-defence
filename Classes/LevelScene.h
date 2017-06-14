@@ -11,10 +11,11 @@
 #include "game/TowerType.h"
 #include "game/Tower.h"
 #include "sprites/TowerSprite.h"
+#include "utils/Listener.h"
 
 class TowerSelector;
 
-class LevelScene : public cocos2d::Layer {
+class LevelScene : public cocos2d::Layer, public Listener {
 
 public:
     static cocos2d::Scene* createScene();
@@ -22,6 +23,10 @@ public:
     bool init();
 
     void addTower(int i);
+
+    void update(float dt) override;
+
+    void notify(std::string message) override;
 
     CREATE_FUNC(LevelScene);
 

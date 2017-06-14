@@ -134,6 +134,8 @@ set(GAME_SRC
   Classes/game/Level.cpp
   Classes/game/Enemy.cpp
   Classes/game/EnemyType.cpp
+  Classes/utils/Listener.cpp
+  Classes/utils/EventPusher.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -149,6 +151,8 @@ set(GAME_HEADERS
   Classes/game/Level.h
   Classes/game/Enemy.h
   Classes/game/EnemyType.h
+  Classes/utils/Listener.h
+  Classes/utils/EventPusher.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
