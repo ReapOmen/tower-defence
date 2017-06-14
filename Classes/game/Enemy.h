@@ -10,7 +10,7 @@ class Enemy {
 public:
     Enemy();
 
-    Enemy(const std::tuple<float, float, int, std::string>& enemyType);
+    Enemy(const std::tuple<float, float, int, std::string>& enemyType, cocos2d::Vec2 pos);
 
     float getSpeed() const;
 

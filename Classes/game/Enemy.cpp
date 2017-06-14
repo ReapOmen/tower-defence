@@ -9,8 +9,8 @@ Enemy::Enemy()
 
 }
 
-Enemy::Enemy(const std::tuple<float, float, int, string>& enemyType)
-    : _pos(Vec2::ZERO),
+Enemy::Enemy(const std::tuple<float, float, int, string>& enemyType, Vec2 pos)
+    : _pos(pos),
       _speed(get<EnemyType::SPEED>(enemyType)),
       _health(get<EnemyType::HEALTH>(enemyType)),
       _bounty(get<EnemyType::BOUNTY>(enemyType)),

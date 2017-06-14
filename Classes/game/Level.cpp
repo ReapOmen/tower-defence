@@ -40,7 +40,7 @@ void Level::update(float dt) {
     _internalTime += dt;
     if (_internalTime > 0.8f) {
         _internalTime = 0.0f;
-        addEnemy(new Enemy(EnemyType::get(EnemyType::NORMAL)));
+        addEnemy(new Enemy(EnemyType::get(EnemyType::NORMAL), _path[0]));
     }
 }
 

@@ -3,6 +3,7 @@
 
 #include <tuple>
 #include <map>
+#include <vector>
 #include <algorithm>
 
 class EnemyType {
